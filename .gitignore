@@ -1,0 +1,22 @@
+# Ignore all files by default
+*
+
+# Ignore specific files and directories
+*_creds.txt
+
+# Whitelist specific file types and files globally
+!*.py
+!*.ipynb
+!*.gitignore
+!*.sh
+!*.yml
+!*.html
+
+# Whitelist specific directories
+!/notebooks/
+!/src/
+!/src/dataset/
+!/src/trainers/
+!/src/utils/
+!/src/models/
+!/src/experiments/
