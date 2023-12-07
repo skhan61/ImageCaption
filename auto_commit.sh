@@ -13,7 +13,7 @@ git pull origin master
 git add .
 
 # Explicitly add changes from each subdirectory
-git add notebooks/* src/dataset/* src/trainers/* 
+git add notebooks/* src/dataset/* src/trainers/* src/models/* src/experiments/* 
 
 # Commit the changes with the current date and time
 if [ -n "$(git diff)" ] || [ -n "$(git diff --cached)" ]; then
