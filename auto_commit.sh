@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Navigate to your project repository
-cd "/home/sayem/Desktop/SODIndoorLoc"
+cd "/home/sayem/Desktop/ImageCaption"
 
 # Define the remote repository URL
-REPO_URL="git@github.com:skhan61/SODIndoorLoc.git"
+REPO_URL="git@github.com:skhan61/ImageCaption.git"
 
 # Pull the latest changes from the remote repository
 git pull origin master
