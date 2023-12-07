@@ -80,10 +80,15 @@ def collate_fn(data):
     # Merge images (convert tuple of 3D tensor to 4D tensor)
     images = torch.stack(images, 0)
 
-    # Merge captions (convert tuple of 1D tensor to 2D tensor)
-    # Also record caption lengths (before padding)
-    lengths = [len(cap) for cap in captions]
-    captions = [torch.Tensor(cap) for cap in captions]
-    captions = pad_sequence(captions, batch_first=True)
+    # Compute the length of the longest caption in the batch
+    max_length = max([len(cap) for cap in captions])
 
-    return images, captions, torch.tensor(lengths)
+    # Pad all captions to the length of the longest caption
+    captions_padded = torch.zeros(len(captions), max_length).long()
+    lengths = []
+    for i, cap in enumerate(captions):
+        end = len(cap)
+        captions_padded[i, :end] = cap
+        lengths.append(end)
+
+    return images, captions_padded, torch.tensor(lengths)

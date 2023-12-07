@@ -21,5 +21,3 @@ class EncoderCNN(nn.Module):
         features = features.reshape(features.size(0), -1)
         features = self.linear(features)
         return self.bn(features)
-        return self.bn(features)
-        return self.bn(features)
