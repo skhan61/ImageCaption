@@ -21,3 +21,17 @@ class EncoderCNN(nn.Module):
         features = features.reshape(features.size(0), -1)
         features = self.linear(features)
         return self.bn(features)
+
+
+
+# # Create a dummy input tensor of size [batch_size, channels, width, height]
+# dummy_input = torch.randn(32, 3, 224, 224)  # Batch size of 32, 3 color channels, 224x224 image size
+
+# # Instantiate the EncoderCNN
+# embed_size = 256  # Example embedding size
+# encoder = EncoderCNN(embed_size)
+
+# # Pass the dummy input through the encoder
+# output_features = encoder(dummy_input)
+
+# print("Output features size:", output_features.size())  # Should be [32, embed_size]

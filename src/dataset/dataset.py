@@ -65,17 +65,27 @@ class CocoCaptionsDataset(Dataset):
         caption.append(self.vocab('<end>'))
         target = torch.Tensor(caption)
 
-        return image, target
+        return image, target, img_id
 
     def __len__(self):
         return len(self.ids)
 
+    def get_all_captions_for_image(self, img_id):
+        ann_ids = self.coco.getAnnIds(imgIds=img_id)
+        captions = [self.coco.anns[ann_id]['caption'] for ann_id in ann_ids]
+        return captions
+
+    def get_image_path(self, img_id):
+        img_info = self.coco.loadImgs(img_id)[0]
+        path = img_info['file_name']
+        return os.path.join(self.root_dir, path)
+
 
 def collate_fn(data):
-    """Creates mini-batch tensors from the list of tuples (image, caption)."""
+    """Creates mini-batch tensors from the list of tuples (image, caption, img_id)."""
     # Sort a data list by caption length (descending order)
     data.sort(key=lambda x: len(x[1]), reverse=True)
-    images, captions = zip(*data)
+    images, captions, img_ids = zip(*data)
 
     # Merge images (convert tuple of 3D tensor to 4D tensor)
     images = torch.stack(images, 0)
@@ -91,4 +101,7 @@ def collate_fn(data):
         captions_padded[i, :end] = cap
         lengths.append(end)
 
-    return images, captions_padded, torch.tensor(lengths)
+    # Convert img_ids to a tensor
+    img_ids = torch.tensor(img_ids)
+
+    return images, captions_padded, torch.tensor(lengths), img_ids
