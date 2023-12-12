@@ -12,6 +12,7 @@
 !*.yml
 !*.html
 !*.zip
+!*.pdf
 
 # Whitelist specific directories
 !/notebooks/
